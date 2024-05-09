@@ -59,7 +59,7 @@ void D_LPF_1_controller::set_Kd(double Kd_) {
 
 void D_LPF_1_controller::set_fc(double fc_) {
 	tau = 1.0/(math_2pi*fc_);
-}
+}PID_LPF_1_controller
 
 void D_LPF_1_controller::set_u_max(double u_max_){
     u_max = u_max_;
