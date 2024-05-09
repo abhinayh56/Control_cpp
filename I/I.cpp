@@ -20,7 +20,7 @@ void I_controller::set_param(double dt_, double Ki_, double u_k_1_, double u_max
 	u_max = u_max_;
 }
 
-double I_controller::calc_u(double e_k) {
+double I_controller::update(double e_k) {
 	double u_k = u_k_1 + Ki * dt * e_k;
 	u_k = math_fun.saturate(u_k, -u_max, u_max);
 	u_k_1 = u_k;

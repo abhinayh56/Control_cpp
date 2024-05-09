@@ -25,7 +25,7 @@ void PI_controller::set_param(double dt_, double Kp_, double Ki_, double u_k_1_,
 	u_max = u_max_;
 }
 
-double PI_controller::calc_u(double e_k) {
+double PI_controller::update(double e_k) {
 	double u_k = 0.0;
 	if(start==true){
 		start = false;

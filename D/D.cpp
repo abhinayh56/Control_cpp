@@ -19,7 +19,7 @@ void D_controller::set_param(double dt_, double Kd_, double u_max_) {
 	u_max = u_max_;
 }
 
-double D_controller::calc_u(double e_k) {
+double D_controller::update(double e_k) {
 	double u_k = 0.0;
 	if (start == true) {
 		start = false;

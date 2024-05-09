@@ -3,7 +3,7 @@ class Controller_name{
         Controller_name();
         void init();
         void set_param();
-        double cal_u();
+        double update();
         void reset();
         void merge();
 

@@ -8,7 +8,7 @@ public:
 	P_controller();
 	void init(double Kp_, double u_max_);
 	void set_param(double Kp_, double u_max_);
-	double calc_u(double e_k);
+	double update(double e_k);
 	void reset();
 	void set_Kp(double Kp_);
 	void set_u_max(double u_max_);

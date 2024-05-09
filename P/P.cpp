@@ -14,7 +14,7 @@ void P_controller::set_param(double Kp_, double u_max_) {
 	u_max = u_max_;
 }
 
-double P_controller::calc_u(double e_k) {
+double P_controller::update(double e_k) {
 	return math_fun.saturate(Kp * e_k, -u_max, u_max);
 }
 
