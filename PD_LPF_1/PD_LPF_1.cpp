@@ -24,6 +24,29 @@ void PD_LPF_1_controller::set_param(double dt_, double Kp_, double Kd_, double f
 	tau = 1.0/(math_2pi*fc_);
 }
 
+double PD_LPF_1_controller::calc_u(double e_k) {
+	double u_k = 0.0;
+	if (start == true) {
+		start = false;
+		u_k = Kp * e_k;
+	}
+	else {
+		u_k = (tau * u_k_1 + (Kp*(dt + tau) + Kd) * e_k - (Kp*tau + Kd) * e_k_1) / (tau + dt);
+	}
+	e_k_1 = e_k;
+	u_k_1 = u_k;
+	return u_k;
+}
+
+void PD_LPF_1_controller::reset() {
+	e_k_1 = 0.0;
+	start = true;
+	u_k_1 = 0.0;
+}
+
+void PD_LPF_1_controller::merge(double u_k_1_) {
+}
+
 void PD_LPF_1_controller::set_dt(double dt_) {
 	dt = dt_;
 }
@@ -62,28 +85,4 @@ double PD_LPF_1_controller::get_e_k_1() {
 
 double PD_LPF_1_controller::get_u_k_1() {
 	return u_k_1;
-}
-
-double PD_LPF_1_controller::calc_u(double e_k) {
-	double u_k = 0.0;
-	if (start == true) {
-		start = false;
-		u_k = Kp * e_k;
-	}
-	else {
-		u_k = (tau * u_k_1 + (Kp*(dt + tau) + Kd) * e_k - (Kp*tau + Kd) * e_k_1) / (tau + dt);
-	}
-	e_k_1 = e_k;
-	u_k_1 = u_k;
-	return u_k;
-}
-
-void PD_LPF_1_controller::reset() {
-	e_k_1 = 0.0;
-	start = true;
-	u_k_1 = 0.0;
-	tau = 0.0;
-}
-
-void PD_LPF_1_controller::merge(double u_k_1_) {
 }

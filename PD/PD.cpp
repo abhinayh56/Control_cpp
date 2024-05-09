@@ -20,6 +20,27 @@ void PD_controller::set_param(double dt_, double Kp_, double Kd_) {
 	Kd = Kd_;
 }
 
+double PD_controller::calc_u(double e_k) {
+	double u_k = 0.0;
+	if (start == true) {
+		start = false;
+		u_k = Kp * e_k;
+	}
+	else {
+		u_k = (Kp + Kd/dt) * e_k - (Kd / dt) * e_k_1;
+	}
+	e_k_1 = e_k;
+	return u_k;
+}
+
+void PD_controller::reset() {
+	e_k_1 = 0.0;
+	start = true;
+}
+
+void PD_controller::merge(double u_k_1_) {
+}
+
 void PD_controller::set_dt(double dt_) {
 	dt = dt_;
 }
@@ -46,25 +67,4 @@ double PD_controller::get_Kd() {
 
 double PD_controller::get_e_k_1() {
 	return e_k_1;
-}
-
-double PD_controller::calc_u(double e_k) {
-	double u_k = 0.0;
-	if (start == true) {
-		start = false;
-		u_k = Kp * e_k;
-	}
-	else {
-		u_k = (Kp + Kd/dt) * e_k - (Kd / dt) * e_k_1;
-	}
-	e_k_1 = e_k;
-	return u_k;
-}
-
-void PD_controller::reset() {
-	e_k_1 = 0.0;
-	start = true;
-}
-
-void PD_controller::merge(double u_k_1_) {
 }

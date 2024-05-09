@@ -17,26 +17,6 @@ void D_controller::set_param(double dt_, double Kd_) {
 	Kd = Kd_;
 }
 
-void D_controller::set_dt(double dt_) {
-	dt = dt_;
-}
-
-void D_controller::set_Kd(double Kd_) {
-	Kd = Kd_;
-}
-
-double D_controller::get_dt() {
-	return dt;
-}
-
-double D_controller::get_Kd() {
-	return Kd;
-}
-
-double D_controller::get_e_k_1() {
-	return e_k_1;
-}
-
 double D_controller::calc_u(double e_k) {
 	double u_k = 0.0;
 	if (start == true) {
@@ -56,4 +36,24 @@ void D_controller::reset() {
 }
 
 void D_controller::merge(double u_k_1_) {
+}
+
+void D_controller::set_dt(double dt_) {
+	dt = dt_;
+}
+
+void D_controller::set_Kd(double Kd_) {
+	Kd = Kd_;
+}
+
+double D_controller::get_dt() {
+	return dt;
+}
+
+double D_controller::get_Kd() {
+	return Kd;
+}
+
+double D_controller::get_e_k_1() {
+	return e_k_1;
 }

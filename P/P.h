@@ -6,10 +6,10 @@ public:
 	P_controller();
 	void init(double Kp_);
 	void set_param(double Kp_);
-	void set_Kp(double Kp_);
-	double get_Kp();
 	double calc_u(double e_k);
 	void reset();
+	void set_Kp(double Kp_);
+	double get_Kp();
 
 private:
 	double Kp = 0.0;
