@@ -8,16 +8,18 @@ PD_controller::PD_controller() {
 	start = true;
 }
 
-void PD_controller::init(double dt_, double Kp_, double Kd_) {
+void PD_controller::init(double dt_, double Kp_, double Kd_, double u_max_) {
 	dt = dt_;
 	Kp = Kp_;
 	Kd = Kd_;
+	u_max = u_max_;
 }
 
-void PD_controller::set_param(double dt_, double Kp_, double Kd_) {
+void PD_controller::set_param(double dt_, double Kp_, double Kd_, double u_max_) {
 	dt = dt_;
 	Kp = Kp_;
 	Kd = Kd_;
+	u_max = u_max_;
 }
 
 double PD_controller::calc_u(double e_k) {
@@ -29,6 +31,7 @@ double PD_controller::calc_u(double e_k) {
 	else {
 		u_k = (Kp + Kd/dt) * e_k - (Kd / dt) * e_k_1;
 	}
+	u_k = math_fun.saturate(u_k, -u_max, u_max);
 	e_k_1 = e_k;
 	return u_k;
 }
@@ -53,6 +56,10 @@ void PD_controller::set_Kd(double Kd_) {
 	Kd = Kd_;
 }
 
+void PD_controller::set_u_max(double u_max_){
+    u_max = u_max_;
+}
+
 double PD_controller::get_dt() {
 	return dt;
 }
@@ -67,4 +74,8 @@ double PD_controller::get_Kd() {
 
 double PD_controller::get_e_k_1() {
 	return e_k_1;
+}
+
+double PD_controller::get_u_max(){
+    return u_max;
 }

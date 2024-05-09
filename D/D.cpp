@@ -7,14 +7,16 @@ D_controller::D_controller() {
 	start = true;
 }
 
-void D_controller::init(double dt_, double Kd_) {
+void D_controller::init(double dt_, double Kd_, double u_max_) {
 	dt = dt_;
 	Kd = Kd_;
+	u_max = u_max_;
 }
 
-void D_controller::set_param(double dt_, double Kd_) {
+void D_controller::set_param(double dt_, double Kd_, double u_max_) {
 	dt = dt_;
 	Kd = Kd_;
+	u_max = u_max_;
 }
 
 double D_controller::calc_u(double e_k) {
@@ -26,6 +28,7 @@ double D_controller::calc_u(double e_k) {
 	else {
 		u_k = Kd * (e_k - e_k_1) / dt;
 	}
+	u_k = math_fun.saturate(u_k, -u_max, u_max);
 	e_k_1 = e_k;
 	return u_k;
 }

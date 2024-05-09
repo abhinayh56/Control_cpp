@@ -6,23 +6,23 @@ I_controller::I_controller() {
 	Ki = 0.0;
 }
 
-void I_controller::init(double dt_, double Ki_, double u_k_1_, double I_max_) {
+void I_controller::init(double dt_, double Ki_, double u_k_1_, double u_max_) {
 	dt = dt_;
 	Ki = Ki_;
 	u_k_1 = u_k_1_;
-	I_max = I_max_;
+	u_max = u_max_;
 }
 
-void I_controller::set_param(double dt_, double Ki_, double u_k_1_, double I_max_) {
+void I_controller::set_param(double dt_, double Ki_, double u_k_1_, double u_max_) {
 	dt = dt_;
 	Ki = Ki_;
 	u_k_1 = u_k_1_;
-	I_max = I_max_;
+	u_max = u_max_;
 }
 
 double I_controller::calc_u(double e_k) {
 	double u_k = u_k_1 + Ki * dt * e_k;
-	u_k = math_fun.saturate(u_k, -I_max, I_max);
+	u_k = math_fun.saturate(u_k, -u_max, u_max);
 	u_k_1 = u_k;
 	return u_k;
 }
@@ -47,8 +47,8 @@ void I_controller::set_u_0(double u_k_1_) {
 	u_k_1 = u_k_1_;
 }
 
-void I_controller::set_I_max(double I_max_) {
-	I_max = I_max_;
+void I_controller::set_u_max(double u_max_) {
+	u_max = u_max_;
 }
 
 double I_controller::get_dt() {
@@ -63,6 +63,6 @@ double I_controller::get_u_k_1() {
 	return u_k_1;
 }
 
-double I_controller::get_I_max() {
-	return I_max;
+double I_controller::get_u_max() {
+	return u_max;
 }
