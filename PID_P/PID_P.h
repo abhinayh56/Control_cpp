@@ -8,9 +8,9 @@ class PID_P_controller{
 	public:
 		PID_P_controller();
 
-		void init(double dt_, double Kp_, double Ki_, double Kd_, double fc_, double I_max_, double u_max_, bool d_filter_=false);
-		void set_param(double dt_, double Kp_, double Ki_, double Kd_, double fc_, double I_max_, double u_max_, bool d_filter_=false);
-		double update(double e_k, double u_ff_);
+		void init(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
+		void set_param(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
+		double update(double e_k, double u_ff_=0.0);
 		void reset();
 		void merge(double u_k_1_);
 
@@ -18,23 +18,23 @@ class PID_P_controller{
 		void set_Kp(double Kp_);
 		void set_Ki(double Ki_);
 		void set_Kd(double Kd_);
-		void set_fc(double fc_);
-		void set_ff(double u_ff_);
-		void set_u_0(double u_k_1_);
 		void set_I_max(double I_max_);
 		void set_u_max(double u_max_);
 		void set_d_filter(bool d_filter_);
+        void set_fc(double fc_);
+		void set_ff(double u_ff_);
+		void set_u_0(double u_k_1_);
 
-		double get_dt();
-		double get_Kp();
-		double get_Ki();
-		double get_Kd();
-		double get_fc();
-		double get_ff();
-		double get_u_0();
-		double get_I_max();
-		double get_u_max();
-		bool get_d_filter();
+        double get_dt();
+        double get_Kp();
+        double get_Ki();
+        double get_Kd();
+        double get_I_max();
+        double get_u_max();
+        bool get_d_filter();
+        double get_fc();
+        double get_ff();
+        double get_u_0();
 
 		double get_P();
 		double get_I();
@@ -49,10 +49,10 @@ class PID_P_controller{
 		double Kp = 0.0;
 		double Ki = 0.0;
 		double Kd = 0.0;
-		double fc = 0.0;
 		double I_max = 0.0;
 		double u_max = 0.0;
 		bool d_filter = false;
+        double fc = 0.0;
 
 		double e_k_1 = 0.0;
 		double P = 0.0;
