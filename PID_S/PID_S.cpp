@@ -3,8 +3,8 @@
 PID_S_controller::PID_S_controller(){
     dt = 0.0;
     Kp = 0.0;
-    Ki = 0.0;
-    Kd = 0.0;
+    T_i = 0.0;
+    T_d = 0.0;
     fc = 0.0;
     I_max = 0.0;
     u_max = 0.0;
@@ -18,11 +18,11 @@ PID_S_controller::PID_S_controller(){
     start = true;
 }
 
-void PID_S_controller::init(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_){
+void PID_S_controller::init(double dt_, double Kp_, double T_i_, double T_d_, double I_max_, double u_max_, bool d_filter_=false, double fc_){
     dt = dt_;
     Kp = Kp_;
-    Ki = Ki_;
-    Kd = Kd_;
+    T_i = T_i_;
+    T_d = T_d_;
     I_max = I_max_;
     u_max = u_max_;
     d_filter = d_filter_;
@@ -31,11 +31,11 @@ void PID_S_controller::init(double dt_, double Kp_, double Ki_, double Kd_, doub
     lpf.set_param(fc,dt);
 }
 
-void PID_S_controller::set_param(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_, double fc_){
+void PID_S_controller::set_param(double dt_, double Kp_, double T_i_, double T_d_, double I_max_, double u_max_, bool d_filter_=false, double fc_){
     dt = dt_;
     Kp = Kp_;
-    Ki = Ki_;
-    Kd = Kd_;
+    T_i = T_i_;
+    T_d = T_d_;
     I_max = I_max_;
     u_max = u_max_;
     d_filter = d_filter_;
@@ -48,7 +48,7 @@ double PID_S_controller::update(double e_k, double u_ff_){
 	
     P = Kp*e_k;
 	
-    I = I + Ki*e_k*dt;
+    I = I + (Kp/T_i)*e_k*dt;
 	I = math_fun.saturate(I,-I_max,I_max);
 	
     if(start == true){
@@ -56,7 +56,7 @@ double PID_S_controller::update(double e_k, double u_ff_){
 		start = false;
 	}
 	else{
-		D = Kd*(e - e_pre)/dt;
+		D = Kp*T_d*(e - e_pre)/dt;
 	}
 
 	if(d_filter_==true){
@@ -91,12 +91,12 @@ void PID_S_controller::set_Kp(double Kp_){
     Kp = Kp_;
 }
 
-void PID_S_controller::set_Ki(double Ki_){
-    Ki = Ki_;
+void PID_S_controller::set_Ki(double T_i_){
+    T_i = T_i_;
 }
 
-void PID_S_controller::set_Kd(double Kd_){
-    Kd = Kd_;
+void PID_S_controller::set_Kd(double T_d_){
+    T_d = T_d_;
 }
 
 void PID_S_controller::set_I_max(double I_max_){
@@ -128,12 +128,12 @@ double PID_S_controller::get_Kp(){
     return Kp;
 }
 
-double PID_S_controller::get_Ki(){
-    return Ki;
+double PID_S_controller::get_T_i(){
+    return T_i;
 }
 
-double PID_S_controller::get_Kd(){
-    return Kd;
+double PID_S_controller::get_T_d(){
+    return T_d;
 }
 
 double PID_S_controller::get_I_max(){

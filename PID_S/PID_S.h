@@ -8,16 +8,16 @@ class PID_S_controller{
 	public:
 		PID_S_controller();
 
-		void init(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
-		void set_param(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
+		void init(double dt_, double Kp_, double T_i_, double T_d_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
+		void set_param(double dt_, double Kp_, double T_i_, double T_d_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
 		double update(double e_k, double u_ff_=0.0);
 		void reset();
 		void merge(double u_k_1_);
 
 		void set_dt(double dt_);
 		void set_Kp(double Kp_);
-		void set_Ki(double Ki_);
-		void set_Kd(double Kd_);
+		void set_T_i(double T_i_);
+		void set_T_d(double T_d_);
 		void set_I_max(double I_max_);
 		void set_u_max(double u_max_);
 		void set_d_filter(bool d_filter_);
@@ -26,8 +26,8 @@ class PID_S_controller{
 
         double get_dt();
         double get_Kp();
-        double get_Ki();
-        double get_Kd();
+        double get_T_i();
+        double get_T_d();
         double get_I_max();
         double get_u_max();
         bool get_d_filter();
@@ -46,8 +46,8 @@ class PID_S_controller{
 		
 		double dt = 0.0;
 		double Kp = 0.0;
-		double Ki = 0.0;
-		double Kd = 0.0;
+		double T_i = 0.0;
+		double T_d = 0.0;
 		double I_max = 0.0;
 		double u_max = 0.0;
 		bool d_filter = false;
