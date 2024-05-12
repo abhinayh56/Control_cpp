@@ -23,7 +23,6 @@ class PID_P_controller{
 		void set_d_filter(bool d_filter_);
         void set_fc(double fc_);
 		void set_ff(double u_ff_);
-		void set_u_0(double u_k_1_);
 
         double get_dt();
         double get_Kp();
@@ -34,12 +33,12 @@ class PID_P_controller{
         bool get_d_filter();
         double get_fc();
         double get_ff();
-        double get_u_0();
 
 		double get_P();
 		double get_I();
 		double get_D();
 		double get_u();
+		double get_e_k_1();
 
 	private:
 		LPF_filter lpf;

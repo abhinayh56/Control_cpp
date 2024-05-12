@@ -31,7 +31,7 @@ void PID_P_controller::init(double dt_, double Kp_, double Ki_, double Kd_, doub
     lpf.set_param(fc,dt);
 }
 
-void PID_P_controller::set_param(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_){
+void PID_P_controller::set_param(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_, double fc_){
     dt = dt_;
     Kp = Kp_;
     Ki = Ki_;
@@ -43,7 +43,31 @@ void PID_P_controller::set_param(double dt_, double Kp_, double Ki_, double Kd_,
     lpf.set_param(fc,dt);
 }
 
-double PID_P_controller::update(double e_k, double u_ff_);
+double PID_P_controller::update(double e_k, double u_ff_){
+    u_ff = u_ff_;
+	
+    P = Kp*e_k;
+	
+    I = I + Ki*e_k*dt;
+	I = math_fun.saturate(I,-I_max,I_max);
+	
+    if(start == true){
+		D = 0.0;
+		start = false;
+	}
+	else{
+		D = Kd*(e - e_pre)/dt;
+	}
+
+	if(d_filter_==true){
+		lpf.cal_y(D);
+		D = lpf.get_y();
+	}
+	e_k_1 = e_k;
+	u = u_ff + P + I + D;
+	u = math_fun.saturate(u,-u_max,u_max);
+	return u;
+}
 
 void PID_P_controller::reset(){
     e_k_1 = 0.0;
@@ -52,7 +76,7 @@ void PID_P_controller::reset(){
     D = 0.0;
     u = 0.0;
     u_ff = 0.0;
-    start = false;
+    start = true;
     lpf.reset();
 }
 
@@ -60,6 +84,7 @@ void PID_P_controller::merge(double u_k_1_);
 
 void PID_P_controller::set_dt(double dt_){
     dt = dt_;
+    lpf.set_param(fc,dt);
 }
 
 void PID_P_controller::set_Kp(double Kp_){
@@ -88,13 +113,12 @@ void PID_P_controller::set_d_filter(bool d_filter_){
 
 void PID_P_controller::set_fc(double fc_){
     fc = fc_;
+    lpf.set_param(fc,dt);
 }
 
 void PID_P_controller::set_ff(double u_ff_){
     u_ff = u_ff_;
 }
-
-void PID_P_controller::set_u_0(double u_k_1_);
 
 double PID_P_controller::get_dt(){
     return dt;
@@ -132,8 +156,6 @@ double PID_P_controller::get_ff(){
     return u_ff;
 }
 
-double PID_P_controller::get_u_0();
-
 double PID_P_controller::get_P(){
     return P;
 }
@@ -148,4 +170,7 @@ double PID_P_controller::get_D(){
 
 double PID_P_controller::get_u(){
     return u;
+}
+double PID_P_controller::get_e_k_1(){
+    return e_k_1;
 }
