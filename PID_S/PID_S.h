@@ -1,12 +1,12 @@
-#ifndef CONTROL_SYSTEM_PID_P
-#define CONTROL_SYSTEM_PID_P
+#ifndef CONTROL_SYSTEM_PID_S
+#define CONTROL_SYSTEM_PID_S
 
 #include "Math_functions.h"
 #include "Filter_LPF_1.h"
 
-class PID_P_controller{
+class PID_S_controller{
 	public:
-		PID_P_controller();
+		PID_S_controller();
 
 		void init(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
 		void set_param(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);

@@ -1,5 +1,5 @@
-#ifndef CONTROL_SYSTEM_PID
-#define CONTROL_SYSTEM_PID
+#ifndef CONTROL_SYSTEM_PID_LPF_1_FF
+#define CONTROL_SYSTEM_PID_LPF_1_FF
 
 #include <stdint.h>
 #include "Math_functions.h"
