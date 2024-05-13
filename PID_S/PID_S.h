@@ -10,7 +10,7 @@ class PID_S_controller{
 
 		void init(double dt_, double Kp_, double T_i_, double T_d_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
 		void set_param(double dt_, double Kp_, double T_i_, double T_d_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
-		double update(double e_k, double u_ff_=0.0);
+		double update(double x_0, double x, double u_ff_=0.0);
 		void reset();
 		void merge(double u_k_1_);
 

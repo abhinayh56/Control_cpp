@@ -24,7 +24,8 @@ void D_LPF_1_controller::set_param(double dt_, double Kd_, double fc_, double u_
 	u_max = u_max_;
 }
 
-double D_LPF_1_controller::update(double e_k) {
+double D_LPF_1_controller::update(double x_0, double x) {
+	double e_k = x_0 - x;
 	double u_k = 0.0;
 	if (start == true) {
 		start = false;

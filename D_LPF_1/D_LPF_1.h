@@ -9,7 +9,7 @@ public:
 	D_LPF_1_controller();
 	void init(double dt_, double Kd_, double fc_, double u_max_);
 	void set_param(double dt_, double Kd_, double fc_, double u_max_);
-	double update(double e_k);
+	double update(double x_0, double x);
 	void reset();
 	void merge(double u_k_1_);
 	void set_dt(double dt_);

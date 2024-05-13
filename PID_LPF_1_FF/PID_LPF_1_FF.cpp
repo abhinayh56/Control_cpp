@@ -35,7 +35,8 @@ void PID_LPF_1_FF_controller::set_param(double dt_, double Kp_, double Ki_, doub
     u_max = u_max_;
 }
 
-double PID_LPF_1_FF_controller::update(double e_k, double u_ff_){
+double PID_LPF_1_FF_controller::update(double x_0, double x, double u_ff_){
+    double e_k = x_0 - x;
     u_ff = u_ff_;
 	double u_k = 0.0;
 	if((start==0) || (start==1)){

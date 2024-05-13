@@ -43,7 +43,8 @@ void PID_S_controller::set_param(double dt_, double Kp_, double T_i_, double T_d
     lpf.set_param(fc,dt);
 }
 
-double PID_S_controller::update(double e_k, double u_ff_){
+double PID_S_controller::update(double x_0, double x, double u_ff_){
+    double e_k = x_0 - x;
     u_ff = u_ff_;
 	
     P = Kp*e_k;
