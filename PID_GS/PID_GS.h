@@ -10,9 +10,10 @@ class PID_GS_controller{
 
 		void init(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
 		void set_param(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_=10.0);
-		double update(double x_0, double x, double u_ff_=0.0);
+		double update(double x_0, double x, double u_ff_=0.0, double op_cond_);
 		void reset();
 		void merge(double u_k_1_);
+		void set_gain_lookup_table(double* op_cond_arr_, double* Kp_arr_, double* Ki_arr_, double* Kd_arr_, uint16_t len_arr_);
 
 		void set_dt(double dt_);
 		void set_Kp(double Kp_);
@@ -43,6 +44,9 @@ class PID_GS_controller{
 	private:
 		LPF_filter lpf;
 		Math_functions math_fun;
+
+		void update_gain(double Kp_, double Ki_, double Kd_);
+		double interpolate(double x, double x1, double y1, double x2, double y2);
 		
 		double dt = 0.0;
 		double Kp = 0.0;
@@ -59,6 +63,12 @@ class PID_GS_controller{
 		double D = 0.0;
 		double u = 0.0;
 		double u_ff = 0.0;
+
+		double* op_cond_arr;
+		double* Kp_arr;
+		double* Ki_arr;
+		double* Kd_arr;
+		uint16_t len_arr;
 
 		bool start = true;
 };

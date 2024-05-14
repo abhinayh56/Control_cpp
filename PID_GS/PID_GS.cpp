@@ -43,7 +43,9 @@ void PID_GS_controller::set_param(double dt_, double Kp_, double Ki_, double Kd_
     lpf.set_param(fc,dt);
 }
 
-double PID_GS_controller::update(double x_0, double x, double u_ff_){
+double PID_GS_controller::update(double x_0, double x, double u_ff_, double op_cond_){
+    update_gain(op_cond_);
+
     double e_k = x_0 - x;
     u_ff = u_ff_;
 	
@@ -82,6 +84,54 @@ void PID_GS_controller::reset(){
 }
 
 void PID_GS_controller::merge(double u_k_1_);
+
+void PID_GS_controller::set_gain_lookup_table(double* op_cond_arr_, double* Kp_arr_, double* Ki_arr_, double* Kd_arr_, uint16_t len_arr_){
+    op_cond_arr = op_cond_arr_;
+    Kp_arr = Kp_arr_;
+    Ki_arr = Ki_arr_;
+    Kd_arr = Kd_arr_;
+    len_arr = len_arr_;
+}
+
+void PID_GS_controller::update_gain(double op_cond_){
+    if(op_cond_<=op_cond_arr[0]){
+        Kp = Kp_arr[0];
+        Ki = Ki_arr[0];
+        Kd = Kd_arr[0];
+    }
+    else if(op_cond_>=op_cond_arr[len_arr-1]){
+        Kp = Kp_arr[len_arr-1];
+        Ki = Ki_arr[len_arr-1];
+        Kd = Kd_arr[len_arr-1];
+    }
+    else{
+        uint16_t index_i = 0;
+
+        for(uint16_t i=0;i<len_arr;i++){
+            if (op_cond_>op_cond_arr[i]){
+                index_i++;
+            }
+            else{
+                break;
+            }
+        }
+
+        double op_cond_1 = op_cond_arr[index_i];
+        double op_cond_2 = op_cond_arr[index_i + 1];
+
+        double Kp_1 = Kp_arr[index_i];
+        double Kp_2 = Kp_arr[index_i + 1];
+        Kp = interpolate(op_cond_, op_cond_1, Kp_1, op_cond_2, Kp_2);
+
+        double Ki_1 = Ki_arr[index_i];
+        double Ki_2 = Ki_arr[index_i + 1];
+        Ki = interpolate(op_cond_, op_cond_1, Ki_1, op_cond_2, Ki_2);
+
+        double Kd_1 = Kd_arr[index_i];
+        double Kd_2 = Kd_arr[index_i + 1];
+        Kd = interpolate(op_cond_, op_cond_1, Kd_1, op_cond_2, Kd_2);
+    }
+}
 
 void PID_GS_controller::set_dt(double dt_){
     dt = dt_;
@@ -174,4 +224,8 @@ double PID_GS_controller::get_u(){
 }
 double PID_GS_controller::get_e_k_1(){
     return e_k_1;
+}
+
+double PID_GS_controller::interpolate(double x, double x1, double y1, double x2, double y2){
+    return y1 + (x-x1)*(y2-y1)/(x2-x1);
 }
