@@ -83,7 +83,8 @@ void PID_GS_controller::reset(){
     lpf.reset();
 }
 
-void PID_GS_controller::merge(double u_k_1_);
+void PID_GS_controller::merge(double u_k_1_){
+}
 
 void PID_GS_controller::set_gain_lookup_table(double* op_cond_arr_, double* Kp_arr_, double* Ki_arr_, double* Kd_arr_, uint16_t len_arr_){
     op_cond_arr = op_cond_arr_;
@@ -222,6 +223,7 @@ double PID_GS_controller::get_D(){
 double PID_GS_controller::get_u(){
     return u;
 }
+
 double PID_GS_controller::get_e_k_1(){
     return e_k_1;
 }
