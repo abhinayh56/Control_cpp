@@ -117,20 +117,9 @@ void PID_GS_controller::update_gain(double op_cond_){
             }
         }
 
-        double op_cond_1 = op_cond_arr[index_i];
-        double op_cond_2 = op_cond_arr[index_i + 1];
-
-        double Kp_1 = Kp_arr[index_i];
-        double Kp_2 = Kp_arr[index_i + 1];
-        Kp = interpolate(op_cond_, op_cond_1, Kp_1, op_cond_2, Kp_2);
-
-        double Ki_1 = Ki_arr[index_i];
-        double Ki_2 = Ki_arr[index_i + 1];
-        Ki = interpolate(op_cond_, op_cond_1, Ki_1, op_cond_2, Ki_2);
-
-        double Kd_1 = Kd_arr[index_i];
-        double Kd_2 = Kd_arr[index_i + 1];
-        Kd = interpolate(op_cond_, op_cond_1, Kd_1, op_cond_2, Kd_2);
+        Kp = interpolate(op_cond_, op_cond_arr[index_i], Kp_arr[index_i], op_cond_arr[index_i + 1], Kp_arr[index_i + 1]);
+        Ki = interpolate(op_cond_, op_cond_arr[index_i], Ki_arr[index_i], op_cond_arr[index_i + 1], Ki_arr[index_i + 1]);
+        Kd = interpolate(op_cond_, op_cond_arr[index_i], Kd_arr[index_i], op_cond_arr[index_i + 1], Kd_arr[index_i + 1]);
     }
 }
 
