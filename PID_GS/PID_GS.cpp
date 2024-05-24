@@ -18,17 +18,9 @@ PID_GS_controller::PID_GS_controller(){
     start = true;
 }
 
-void PID_GS_controller::init(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_=false, double fc_){
-    dt = dt_;
-    Kp = Kp_;
-    Ki = Ki_;
-    Kd = Kd_;
-    I_max = I_max_;
-    u_max = u_max_;
-    d_filter = d_filter_;
-    fc = fc_;
+void PID_GS_controller::init(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_, double fc_){
+    set_param(dt_, Kp_, Ki_, Kd_, I_max_, u_max_, d_filter_, fc_);
     start = true;
-    lpf.set_param(fc,dt);
 }
 
 void PID_GS_controller::set_param(double dt_, double Kp_, double Ki_, double Kd_, double I_max_, double u_max_, bool d_filter_, double fc_){

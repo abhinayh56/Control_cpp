@@ -8,9 +8,8 @@ D_controller::D_controller() {
 }
 
 void D_controller::init(double dt_, double Kd_, double u_max_) {
-	dt = dt_;
-	Kd = Kd_;
-	u_max = u_max_;
+	set_param(dt_, Kd_, u_max_);
+	start = true;
 }
 
 void D_controller::set_param(double dt_, double Kd_, double u_max_) {

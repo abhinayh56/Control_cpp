@@ -9,10 +9,8 @@ PD_controller::PD_controller() {
 }
 
 void PD_controller::init(double dt_, double Kp_, double Kd_, double u_max_) {
-	dt = dt_;
-	Kp = Kp_;
-	Kd = Kd_;
-	u_max = u_max_;
+	set_param(dt_, Kp_, Kd_, u_max_);
+	start = true;
 }
 
 void PD_controller::set_param(double dt_, double Kp_, double Kd_, double u_max_) {

@@ -7,10 +7,7 @@ I_controller::I_controller() {
 }
 
 void I_controller::init(double dt_, double Ki_, double u_k_1_, double u_max_) {
-	dt = dt_;
-	Ki = Ki_;
-	u_k_1 = u_k_1_;
-	u_max = u_max_;
+	set_param(dt_, Ki_, u_k_1_, u_max_);
 }
 
 void I_controller::set_param(double dt_, double Ki_, double u_k_1_, double u_max_) {

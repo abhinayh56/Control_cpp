@@ -5,8 +5,7 @@ P_controller::P_controller() {
 }
 
 void P_controller::init(double Kp_, double u_max_) {
-	Kp = Kp_;
-	u_max = u_max_;
+	set_param(Kp_, u_max_);
 }
 
 void P_controller::set_param(double Kp_, double u_max_) {

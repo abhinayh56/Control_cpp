@@ -13,17 +13,11 @@ PID_LPF_1_controller::PID_LPF_1_controller(){
 }
 
 void PID_LPF_1_controller::init(double dt_, double Kp_, double Ki_, double Kd_, double fc_, double u_k_1_, double u_k_2_, double u_max_){
-    dt = dt_;
-    Kp = Kp_;
-    Ki = Ki_;
-    Kd = Kd_;
-    tau = 1.0/(math_2pi*fc_);
-    u_k_1 = u_k_1_;
-    u_k_2 = u_k_2_;
-    u_max = u_max_;
+    set_param(dt_, Kp_, Ki_, Kd_, fc_, u_k_1_, u_k_2_, u_max_);
+    start = 0;
 }
 
-void PID_LPF_1_controller::set_param(double dt_, double Kp_, double Ki_, double Kd_, double fc_, double u_k_1_, double u_k_2_, double u_max_);{
+void PID_LPF_1_controller::set_param(double dt_, double Kp_, double Ki_, double Kd_, double fc_, double u_k_1_, double u_k_2_, double u_max_){
     dt = dt_;
     Kp = Kp_;
     Ki = Ki_;

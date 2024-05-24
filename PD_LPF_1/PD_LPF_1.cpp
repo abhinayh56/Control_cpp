@@ -11,11 +11,8 @@ PD_LPF_1_controller::PD_LPF_1_controller() {
 }
 
 void PD_LPF_1_controller::init(double dt_, double Kp_, double Kd_, double fc_, double u_max_) {
-	dt = dt_;
-	Kp = Kp_;
-	Kd = Kd_;
-	tau = 1.0/(math_2pi*fc_);
-	u_max = u_max_;
+	set_param(dt_, Kp_, Kd_, fc_, u_max_);
+	start = true;
 }
 
 void PD_LPF_1_controller::set_param(double dt_, double Kp_, double Kd_, double fc_, double u_max_) {

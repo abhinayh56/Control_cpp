@@ -10,11 +10,8 @@ PI_controller::PI_controller() {
 }
 
 void PI_controller::init(double dt_, double Kp_, double Ki_, double u_k_1_, double u_max_) {
-	dt = dt_;
-	Kp = Kp_;
-	Ki = Ki_;
-	u_k_1 = u_k_1_;
-	u_max = u_max_;
+	set_param(dt_, Kp_, Ki_, u_k_1_, u_max_);
+	start = true;
 }
 
 void PI_controller::set_param(double dt_, double Kp_, double Ki_, double u_k_1_, double u_max_) {
