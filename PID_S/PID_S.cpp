@@ -81,7 +81,8 @@ void PID_S_controller::reset(){
     lpf.reset();
 }
 
-void PID_S_controller::merge(double u_k_1_);
+void PID_S_controller::merge(double u_k_1_){
+}
 
 void PID_S_controller::set_dt(double dt_){
     dt = dt_;
