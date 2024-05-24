@@ -14,7 +14,7 @@ class PID_GS_controller{
 		void reset();
 		void merge(double u_k_1_);
 		void set_gain_lookup_table(double* op_cond_arr_, double* Kp_arr_, double* Ki_arr_, double* Kd_arr_, uint16_t len_arr_);
-
+ 
 		void set_dt(double dt_);
 		void set_Kp(double Kp_);
 		void set_Ki(double Ki_);
